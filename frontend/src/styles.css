@@ -116,3 +116,26 @@ kbd { font-family: var(--font-ui); font-size: 11px; background: var(--panel-2); 
 @media (max-width: 780px) {
   .studio-grid { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* 가구 공방 */
+.workshop-grid { display: grid; grid-template-columns: 300px minmax(0, auto) minmax(0, 1fr); gap: 14px; align-items: start; }
+.tpl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.tpl { border: 1px solid var(--line); background: var(--panel-2); border-radius: 12px; padding: 8px 4px 6px; display: grid; justify-items: center; align-content: end; gap: 4px; font-size: 11px; color: var(--dim); min-height: 72px; }
+.tpl img { max-width: 100%; height: auto; }
+.tpl:hover { border-color: var(--violet); color: var(--ink); }
+.form { display: grid; gap: 6px; }
+.form label { font-size: 12px; color: var(--dim); margin-top: 6px; }
+.form input[type='text'], .form input:not([type]) { background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; color: var(--ink); padding: 9px 10px; font: inherit; }
+.seg.two-col { grid-template-columns: 1fr 1fr; min-width: 0; }
+.seg.four-col { grid-template-columns: repeat(4, 1fr); min-width: 0; }
+.tool-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { border: 1px solid var(--line); background: var(--panel-2); border-radius: 999px; padding: 6px 12px; font-size: 12px; font-weight: 700; color: var(--dim); }
+.chip[aria-pressed='true'] { background: var(--violet); color: #fff; border-color: transparent; }
+.preview-room { display: block; width: 100%; max-width: 256px; height: auto; border-radius: 10px; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; }
+.g-item { background: var(--panel-2); border-radius: 12px; padding: 8px; display: grid; justify-items: center; gap: 3px; font-size: 12px; text-align: center; }
+.g-item img { max-width: 100%; height: auto; }
+.g-item span { color: var(--dim); font-size: 11px; }
+.link { border: 0; background: none; color: var(--danger); font-size: 11px; text-decoration: underline; padding: 0; }
+@media (max-width: 1280px) { .workshop-grid { grid-template-columns: 300px minmax(0, 1fr); } .workshop-grid > :last-child { grid-column: 1 / -1; } }
+@media (max-width: 780px) { .workshop-grid { grid-template-columns: minmax(0, 1fr); } }

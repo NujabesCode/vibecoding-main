@@ -2,6 +2,7 @@
 // 서버에는 이 JSON 한 덩어리만 저장한다. 픽셀은 같은 값이 연속되면 "개수*값"으로 압축(RLE)한다.
 import { ACCENT, BOTTOM, HAIR, SHOES, SKIN, TOP, type PaletteSel } from './color';
 import { ACCS, BOTTOMS, buildLayers, EYES, HAIRS, TOPS, type Parts } from './parts';
+import { decodeCells, encodeCells } from './rle';
 import { DIRS, LAYERS, N, type CharLayers, type Layer } from './sprite';
 
 export interface Design {
@@ -13,31 +14,8 @@ export interface Design {
 
 type Encoded = { v: 1; parts: Parts; palette: PaletteSel; layers: Record<string, Record<string, string>> };
 
-export function encodeLayer(L: Layer): string {
-  const out: string[] = [];
-  let i = 0;
-  while (i < L.length) {
-    const v = L[i];
-    let n = 1;
-    while (i + n < L.length && L[i + n] === v) n++;
-    out.push(n + '*' + (v ?? ''));
-    i += n;
-  }
-  return out.join(',');
-}
-
-export function decodeLayer(s: string): Layer {
-  const L: Layer = [];
-  for (const tok of s.split(',')) {
-    const star = tok.indexOf('*');
-    const n = Number(tok.slice(0, star));
-    const v = tok.slice(star + 1) || null;
-    if (!Number.isInteger(n) || n < 1 || L.length + n > N) throw new Error('bad layer');
-    for (let k = 0; k < n; k++) L.push(v);
-  }
-  if (L.length !== N) throw new Error('bad layer length');
-  return L;
-}
+export const encodeLayer = (L: Layer): string => encodeCells(L);
+export const decodeLayer = (s: string): Layer => decodeCells(s, N);
 
 export function serializeDesign(d: Design): string {
   const layers: Encoded['layers'] = {};

@@ -15,6 +15,27 @@ export interface CharacterDto {
   design: string;
 }
 
+export interface ItemDto {
+  id: number;
+  ownerId: number;
+  ownerName: string;
+  name: string;
+  kind: string;
+  width: number;
+  height: number;
+  solid: boolean;
+  pixels: string;
+}
+
+export interface NewItem {
+  name: string;
+  kind: 'floor' | 'object';
+  width: number;
+  height: number;
+  solid: boolean;
+  pixels: string;
+}
+
 export class ApiError extends Error {
   readonly status: number;
   constructor(status: number, message: string) {
@@ -58,4 +79,7 @@ export const api = {
   listCharacters: () => request<CharacterDto[]>('GET', '/api/characters'),
   getCharacter: (playerId: number) => getOrNull<CharacterDto>(`/api/characters/${playerId}`),
   saveMyCharacter: (design: string) => request<CharacterDto>('PUT', '/api/characters/me', { design }),
+  listItems: () => request<ItemDto[]>('GET', '/api/items'),
+  createItem: (item: NewItem) => request<ItemDto>('POST', '/api/items', item),
+  deleteItem: (id: number) => request<void>('DELETE', `/api/items/${id}`),
 };
