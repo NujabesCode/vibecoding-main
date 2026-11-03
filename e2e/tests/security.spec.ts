@@ -12,7 +12,7 @@ async function newPlayer(request: APIRequestContext) {
 const design = (hair: string) =>
   JSON.stringify({ v: 1, parts: { hair }, palette: {}, layers: {} });
 
-test('남의 캐릭터 주소로는 저장할 수 없다 (정찰 버전 해킹 재현)', async ({ request }) => {
+test('남의 캐릭터 주소로는 저장할 수 없다 (정찰 버전의 구멍)', async ({ request }) => {
   const victim = await newPlayer(request);
   const res = await request.put(`/api/characters/${victim.id}`, { data: { design: design('bun') } });
   expect(res.ok()).toBeFalsy();

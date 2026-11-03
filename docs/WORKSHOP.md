@@ -19,11 +19,10 @@
 |---|---|---|---|
 | Day 1 | 0:30 | 오프닝 · 완성본에 반 전체 입장 | `main` |
 | | 2:00 | STEP 1 정찰 · 캐릭터 공방 + 저장 | `step-1-scout` |
-| | 0:30 | 해킹 타임 · 옆 사람 캐릭터 덮어쓰기 | |
 | | 0:40 | STEP 2 문서화 · ARCHITECTURE.md | `step-2-docs` |
 | | 1:00 | STEP 3 정독 · 설계 리뷰 | `step-3-review` |
 | | 1:30 | STEP 4 규칙 · CLAUDE.md, 스킬, 첫 E2E | `step-4-rules` |
-| | 1:50 | 버퍼 · 따라잡기 · 내 캐릭터 꾸미기 | |
+| | 2:20 | 버퍼 · 따라잡기 · 내 캐릭터 꾸미기 | |
 | Day 2 | 2:00 | STEP 5a 보안 · 토큰, 내 것만 저장 | `step-5a-secure` |
 | | 3:00 | STEP 5b 가구 공방 | `step-5b-workshop` |
 | | 3:00 | STEP 5c 맵 에디터 | `step-5c-map` |
@@ -115,34 +114,6 @@ frontend/src/engine/ 에 캐릭터 그림 엔진이 있어. (design.ts의 newDes
 
 ---
 
-## 해킹 타임 · 30분
-
-정찰 버전은 일부러 막지 않았다. 옆자리랑 짝을 지어, 로비에서 개발자 도구(F12) → Console:
-
-```js
-// 1) 내 캐릭터를 짝꿍 캐릭터 자리에 덮어쓰기 (짝꿍 id는 로비 카드 순서로 짐작)
-const mine = await (await fetch('/api/characters/' + JSON.parse(localStorage['campus.me']).id)).json();
-await fetch('/api/characters/2', {
-  method: 'PUT',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ design: mine.design }),
-});
-
-// 2) 아예 깨뜨리기
-await fetch('/api/characters/2', {
-  method: 'PUT', headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ design: '해킹' }),
-});
-
-// 3) 아무나 되기
-localStorage['campus.me'] = JSON.stringify({ id: 2, nickname: '나는짝꿍' }); location.reload();
-```
-
-짝꿍 화면을 새로고침하면 캐릭터가 바뀌어 있다. **"버튼은 숨겼는데 서버는 안 막았다"** 슬라이드가 여기서 체감된다.
-지금 고치지 않는다. STEP 2~3에서 문서로 찾게 한다.
-
----
-
 ## STEP 2 · 문서화 · 40분 · `step-2-docs`
 
 **목표**: 기획서가 아니라 현실을 기록한 문서. 지금 코드가 실제로 어떻게 생겼는지.
@@ -174,7 +145,7 @@ localStorage['campus.me'] = JSON.stringify({ id: 2, nickname: '나는짝꿍' });
    - 메타버스 화면에서 이 엔진을 그대로 쓸 수 있는가?
 3. 20분: `docs/REVIEW.md`에 "고칠 것 우선순위" 표 쓰기 (예시: `step-3-review` 태그)
 
-**강사 포인트**: "상상 속 설계가 아니라 이미 존재하는 실물을 검토한다." 해킹 타임에서 당한 구멍이 문서에 그대로 적혀 있는 걸 확인시킨다.
+**강사 포인트**: "상상 속 설계가 아니라 이미 존재하는 실물을 검토한다." 정찰 때 일부러 안 막은 구멍(남의 캐릭터 덮어쓰기)이 문서에 그대로 적혀 있는 걸 확인시킨다.
 
 ---
 
@@ -232,11 +203,11 @@ docs/REVIEW.md의 "고칠 것" 1~4번을 처리해줘.
 - Authorization: Bearer 토큰 → @CurrentPlayer 파라미터로 받는 리졸버. 없거나 틀리면 401
 - 저장은 PUT /api/characters/me 로만. 주소에 남의 id를 넣는 방법 자체를 없앤다
 - 디자인 100KB 제한 + JSON 필수 키 검사, 닉네임 1~12자. 실패는 400, 에러 모양은 {"message"}로 통일
-E2E에 해킹 타임에서 한 공격을 그대로 넣어서 전부 막히는지 확인해줘.
+E2E로 남의 캐릭터 덮어쓰기, 토큰 없이 저장, 이상한 디자인 저장이 전부 막히는지 확인해줘.
 ```
 
 **강사 포인트**
-- 해킹 타임 스크립트를 다시 돌려 본다 → 405/401. 박수 나오는 구간
+- `security.spec.ts`를 headed로 돌려서 남의 캐릭터 저장이 401/405로 막히는 걸 보여 준다
 - V1을 고치지 않고 V2를 새로 만드는 이유: 이미 수업 DB에 V1이 들어가 있다
 - 검사 로직(JsonShape)에만 단위 테스트를 붙인다 — "숫자 하나 틀리면 사고"인 곳만
 
@@ -305,7 +276,7 @@ E2E에 해킹 타임에서 한 공격을 그대로 넣어서 전부 막히는지
 찜찜한 곳은 해결된 건 취소선 + 어떻게 해결했는지, 새로 생긴 건 솔직하게 추가해줘.
 ```
 
-**정독 2회차 질문**: 새로 생긴 찜찜한 곳 중에 "순간이동 해킹"(서버가 벽을 검사 안 함)을 직접 해본다. 개발자 도구에서 STOMP로 좌표를 보내면 벽을 뚫는다. → 숙제: 서버에서 맵 충돌 칸을 검사하게 고치기.
+**정독 2회차 질문**: 새로 생긴 찜찜한 곳 중에 "서버가 벽을 검사하지 않는다"를 같이 읽는다. → 숙제: 서버에서 맵 충돌 칸을 검사하게 고치기.
 
 이 단계에서 "테스트 데이터가 수업 갤러리에 섞인다"도 고친다: E2E를 전용 DB(`campus_e2e`)와 포트(8081/5174)로 분리.
 

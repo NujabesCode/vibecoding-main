@@ -8,7 +8,17 @@
 - **맵 에디터**: 바닥·가구·벽·시작 위치
 - **메타버스**: 실시간 이동·근접 말풍선·이모트, 클릭하면 길 찾아 걷기
 
-실습 진행은 [docs/WORKSHOP.md](docs/WORKSHOP.md), 구조는 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), 배포는 [deploy/DEPLOY.md](deploy/DEPLOY.md).
+## 수업 자료
+
+| 누가 | 무엇 | 파일 |
+|---|---|---|
+| 학생 | 따라치기 시트 (번호 `00`~`57`, 빈 폴더부터 배포까지) | [docs/STUDENT.md](docs/STUDENT.md) |
+| 학생 | 스타터 키트 (첫날 이것 하나만 받는다) | [starter/my-campus-starter.zip](starter/my-campus-starter.zip) |
+| 강사 | 진행 가이드 · 시간표 · 강사 포인트 | [docs/WORKSHOP.md](docs/WORKSHOP.md) |
+| 모두 | 구조 설명서 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
+| 모두 | AWS 배포 | [deploy/DEPLOY.md](deploy/DEPLOY.md) |
+
+이 저장소의 `main`은 완성본이고, 단계마다 태그가 있어서 뒤처진 학생은 태그로 따라잡는다 (아래 표).
 
 ## 실행
 
