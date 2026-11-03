@@ -6,6 +6,7 @@ import MapEditor from './pages/MapEditor';
 import MapList from './pages/MapList';
 import Studio from './pages/Studio';
 import Workshop from './pages/Workshop';
+import World from './pages/World';
 import { clearMe, loadMe, saveMe } from './session';
 
 // 주소 뒤 #부분으로 화면을 고른다: #studio, #workshop, #maps, #edit/new, #edit/12
@@ -14,19 +15,23 @@ type Route =
   | { page: 'studio' }
   | { page: 'workshop' }
   | { page: 'maps' }
-  | { page: 'edit'; id: number | null };
+  | { page: 'edit'; id: number | null }
+  | { page: 'world'; id: number };
 
 function readRoute(): Route {
   const h = location.hash.replace(/^#/, '');
   if (h === 'studio' || h === 'workshop' || h === 'maps') return { page: h };
   const edit = /^edit\/(new|\d+)$/.exec(h);
   if (edit) return { page: 'edit', id: edit[1] === 'new' ? null : Number(edit[1]) };
+  const world = /^world\/(\d+)$/.exec(h);
+  if (world) return { page: 'world', id: Number(world[1]) };
   return { page: 'lobby' };
 }
 
 function toHash(r: Route): string {
   if (r.page === 'lobby') return '';
   if (r.page === 'edit') return `edit/${r.id ?? 'new'}`;
+  if (r.page === 'world') return `world/${r.id}`;
   return r.page;
 }
 
@@ -68,6 +73,7 @@ export default function App() {
           onBack={() => go({ page: 'lobby' })}
           onNew={() => go({ page: 'edit', id: null })}
           onEdit={(id) => go({ page: 'edit', id })}
+          onEnter={(id) => go({ page: 'world', id })}
         />
       );
     case 'edit':
@@ -79,6 +85,8 @@ export default function App() {
           onBack={() => go({ page: 'maps' })}
         />
       );
+    case 'world':
+      return <World key={route.id} me={me} mapId={route.id} onBack={() => go({ page: 'maps' })} />;
     default:
       return (
         <Lobby

@@ -12,6 +12,7 @@
     "check": "npm run typecheck && npm run lint"
   },
   "dependencies": {
+    "@stomp/stompjs": "7.5.0",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },
