@@ -28,7 +28,7 @@ claude --version
 
 ### 스타터 키트
 
-`starter/my-campus-starter.zip` 하나만 받는다 (이 저장소의 `starter` 폴더 → zip 파일 → Download). 들어 있는 건 세 가지다.
+`my-campus-starter.zip` 하나만 받는다 (https://github.com/NujabesCode/vibecoding-main/tree/woori-campus/starter → zip 파일 → Download). 들어 있는 건 세 가지다.
 
 | 들어 있는 것 | 왜 주는가 |
 |---|---|
@@ -578,7 +578,7 @@ localStorage.clear(); location.reload();
 
 ```bash
 cd C:\dev                                  # 맥: cd ~/dev
-git clone https://github.com/NujabesCode/woori-campus.git catch-up
+git clone -b woori-campus https://github.com/NujabesCode/vibecoding-main.git catch-up
 cd catch-up
 git switch -c mine step-5b-workshop        # 지금 해야 하는 단계가 끝난 태그로
 docker compose down -v                     # 내 DB는 내 코드 기준이라 비운다
