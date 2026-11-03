@@ -1,0 +1,16 @@
+# /etc/systemd/system/campus.service
+# 서버가 재부팅돼도, 앱이 죽어도 자동으로 다시 켜진다.
+[Unit]
+Description=Woori Campus (Spring Boot)
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/opt/campus
+EnvironmentFile=/opt/campus/campus.env
+ExecStart=/usr/bin/java -Xms256m -Xmx512m -jar /opt/campus/app.jar
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
