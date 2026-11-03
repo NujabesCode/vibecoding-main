@@ -574,20 +574,20 @@ localStorage.clear(); location.reload();
 
 ### 따라잡기 (15분 넘게 못 풀었을 때)
 
-선생님 완성본(이 저장소)에는 단계마다 태그가 있다. 내 폴더는 그대로 두고 선생님 코드로 갈아탄다.
+선생님 완성본에는 단계마다 체크포인트 브랜치가 있다. 내 폴더는 그대로 두고 선생님 코드로 갈아탄다.
 
 ```bash
 cd C:\dev                                  # 맥: cd ~/dev
 git clone -b woori-campus https://github.com/NujabesCode/vibecoding-main.git catch-up
 cd catch-up
-git switch -c mine step-5b-workshop        # 지금 해야 하는 단계가 끝난 태그로
+git switch -c mine origin/step-5b-workshop # 지금 해야 하는 단계가 끝난 체크포인트로
 docker compose down -v                     # 내 DB는 내 코드 기준이라 비운다
 docker compose up -d
 ```
 
 원래 폴더에서 켜 둔 서버(②)와 화면(③)은 `Ctrl + C`로 끄고, `05`, `06`처럼 서버와 화면을 켜고, `catch-up` 폴더에서 `claude`를 열어 다음 번호부터 같이 친다.
 
-| 태그 | 여기까지 끝난 상태 | 다음 번호 |
+| 체크포인트 | 여기까지 끝난 상태 | 다음 번호 |
 |---|---|---|
 | `step-1-scout` | 정찰 | `12` |
 | `step-2-docs` | 문서화 | `15` |

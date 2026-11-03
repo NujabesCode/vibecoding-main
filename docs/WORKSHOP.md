@@ -56,9 +56,9 @@
 ### 체크포인트 쓰는 법 (뒤처진 학생용)
 
 ```bash
-git clone <강사 레포> campus-ref
+git clone -b woori-campus https://github.com/NujabesCode/vibecoding-main.git campus-ref
 cd campus-ref
-git switch -c catch-up step-5b-workshop      # 가구 공방까지 끝난 상태로
+git switch -c catch-up origin/step-5b-workshop      # 가구 공방까지 끝난 상태로
 ```
 
 > **주의**: 태그를 **뒤로** 돌아갈 때는 DB도 비워야 한다. 새 마이그레이션(V3, V4)이 이미 들어간 DB에 옛날 코드를 켜면 Flyway가 멈춘다.

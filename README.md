@@ -47,7 +47,9 @@ cd e2e && npm install && npx playwright install chromium && npx playwright test
 # E2E는 서버(8081)·화면(5174)·DB(campus_e2e)를 따로 띄워서 돈다. 개발 서버를 켜 둔 채로 돌려도 된다.
 ```
 
-## 단계별 태그
+## 단계별 체크포인트
+
+태그와 같은 이름의 브랜치로도 올려 두었다 (GitHub에서는 브랜치로 보인다). 따라잡기: `git switch -c mine origin/step-5b-workshop`
 
 | 태그 | 내용 |
 |---|---|
