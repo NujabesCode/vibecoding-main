@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { api, type PlayerDto } from '../api';
+import { api, ApiError, type PlayerDto } from '../api';
 import RoomPreview from '../components/RoomPreview';
 import { ACCENT, BOTTOM, buildPal, HAIR, resolveColor, SHOES, SKIN, TOP, type PaletteSel } from '../engine/color';
 import { cloneDesign, newDesign, parseDesign, randomDesign, serializeDesign, type Design } from '../engine/design';
@@ -356,10 +356,10 @@ export default function Studio({ me, onDone }: { me: PlayerDto; onDone: () => vo
   const save = async () => {
     setSaving(true);
     try {
-      await api.saveCharacter(me.id, serializeDesign(design.current));
+      await api.saveMyCharacter(serializeDesign(design.current));
       showToast('저장했어요! 우리반 친구들 목록에 바로 보여요');
-    } catch {
-      showToast('저장하지 못했어요. 서버가 켜져 있는지 확인해 주세요');
+    } catch (e) {
+      showToast(e instanceof ApiError ? e.message : '저장하지 못했어요. 서버가 켜져 있는지 확인해 주세요');
     } finally {
       setSaving(false);
     }

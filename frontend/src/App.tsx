@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { PlayerDto } from './api';
+import type { Me } from './api';
 import Entry from './pages/Entry';
 import Lobby from './pages/Lobby';
 import Studio from './pages/Studio';
@@ -10,7 +10,7 @@ type Route = 'lobby' | 'studio';
 const readRoute = (): Route => (location.hash === '#studio' ? 'studio' : 'lobby');
 
 export default function App() {
-  const [me, setMe] = useState<PlayerDto | null>(() => loadMe());
+  const [me, setMe] = useState<Me | null>(() => loadMe());
   const [route, setRoute] = useState<Route>(readRoute);
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { api, type PlayerDto } from '../api';
+import { api, ApiError, type Me } from '../api';
 
-export default function Entry({ onEnter }: { onEnter: (me: PlayerDto) => void }) {
+export default function Entry({ onEnter }: { onEnter: (me: Me) => void }) {
   const [nickname, setNickname] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -17,8 +17,8 @@ export default function Entry({ onEnter }: { onEnter: (me: PlayerDto) => void })
     setError(null);
     try {
       onEnter(await api.createPlayer(name));
-    } catch {
-      setError('입장하지 못했어요. 서버가 켜져 있는지 확인해 주세요');
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : '입장하지 못했어요. 서버가 켜져 있는지 확인해 주세요');
     } finally {
       setBusy(false);
     }
