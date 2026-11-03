@@ -1,0 +1,15 @@
+# build
+backend/build/
+backend/.gradle/
+frontend/node_modules/
+frontend/dist/
+e2e/node_modules/
+e2e/test-results/
+e2e/playwright-report/
+# ide
+.idea/
+*.iml
+.vscode/
+# secrets
+.env
+*.env.local
