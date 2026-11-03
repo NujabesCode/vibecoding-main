@@ -36,6 +36,21 @@ export interface NewItem {
   pixels: string;
 }
 
+export interface MapSummaryDto {
+  id: number;
+  name: string;
+  ownerId: number;
+  ownerName: string;
+  updatedAt: string;
+}
+
+export interface MapDetailDto {
+  id: number;
+  name: string;
+  ownerId: number;
+  data: string;
+}
+
 export class ApiError extends Error {
   readonly status: number;
   constructor(status: number, message: string) {
@@ -82,4 +97,8 @@ export const api = {
   listItems: () => request<ItemDto[]>('GET', '/api/items'),
   createItem: (item: NewItem) => request<ItemDto>('POST', '/api/items', item),
   deleteItem: (id: number) => request<void>('DELETE', `/api/items/${id}`),
+  listMaps: () => request<MapSummaryDto[]>('GET', '/api/maps'),
+  getMap: (id: number) => request<MapDetailDto>('GET', `/api/maps/${id}`),
+  createMap: (name: string, data: string) => request<MapDetailDto>('POST', '/api/maps', { name, data }),
+  updateMap: (id: number, name: string, data: string) => request<MapDetailDto>('PUT', `/api/maps/${id}`, { name, data }),
 };

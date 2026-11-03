@@ -9,7 +9,7 @@ interface Friend {
   design: Design | null;
 }
 
-export default function Lobby({ me, onStudio, onWorkshop, onLogout }: { me: PlayerDto; onStudio: () => void; onWorkshop: () => void; onLogout: () => void }) {
+export default function Lobby({ me, onStudio, onWorkshop, onMaps, onLogout }: { me: PlayerDto; onStudio: () => void; onWorkshop: () => void; onMaps: () => void; onLogout: () => void }) {
   const [friends, setFriends] = useState<Friend[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -44,6 +44,7 @@ export default function Lobby({ me, onStudio, onWorkshop, onLogout }: { me: Play
         <div className="top-actions">
           <button className="btn primary" type="button" onClick={onStudio} data-testid="go-studio">내 캐릭터 꾸미기</button>
           <button className="btn" type="button" onClick={onWorkshop} data-testid="go-workshop">가구 공방</button>
+          <button className="btn" type="button" onClick={onMaps} data-testid="go-maps">맵</button>
           <button className="btn ghost" type="button" onClick={onLogout}>나가기</button>
         </div>
       </header>
