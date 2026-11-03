@@ -14,6 +14,8 @@ services:
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
       - mysql-data:/var/lib/mysql
+      # 처음 만들 때 한 번 실행: E2E 전용 DB(campus_e2e) 생성
+      - ./docker/mysql-init:/docker-entrypoint-initdb.d:ro
 
 volumes:
   mysql-data:
